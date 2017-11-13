@@ -14,7 +14,9 @@ import NotFound from 'views/NotFound';
 import '../../../styles/react-datetime.less';
 import '../../../styles/react-toastify.less';
 import { ToastContainer, toast } from 'react-toastify';
+import { connect } from 'react-redux'
 
+import { changeUserData } from '../../actions/user';
 const publicPath = '/';
 
 export const routeCodes = {
@@ -29,6 +31,25 @@ class App extends Component {
             isShowScrollButton: false
         }
         this.handScroll = this.handScroll.bind(this);
+    }
+
+    componentWillMount() {
+        const userKey = Object.keys(window.localStorage)
+            .filter(it => it.startsWith('firebase:authUser'))[0];
+        const user = userKey ? JSON.parse(localStorage.getItem(userKey)) : null;
+        if (user) {
+            const { changeUserData } = this.props;
+            const { displayName, photoURL, email } = user;
+            const data = {
+                isAuthenticated: true,
+                info: {
+                    displayName,
+                    photoURL,
+                    email
+                }
+            }
+            changeUserData(data);
+        }
     }
 
     componentDidMount() {
@@ -89,4 +110,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(null, { changeUserData })(App);

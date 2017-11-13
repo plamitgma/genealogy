@@ -7,7 +7,7 @@ import {
   Alert
 } from "react-bootstrap";
 
-const NotificationModalComponent = ({ isShow, onHide, localization, message }) =>
+const NotificationModalComponent = ({ isShow, onHide, message }) =>
   <Modal id="notificationModal" show={isShow}
     onHide={onHide}>
     <Modal.Header>
@@ -22,7 +22,7 @@ const NotificationModalComponent = ({ isShow, onHide, localization, message }) =
           bsSize="large"
           className="ok-button"
           onClick={onHide}>
-          {localization.ok}
+          OK
         </Button>
       </form>
     </Modal.Body>

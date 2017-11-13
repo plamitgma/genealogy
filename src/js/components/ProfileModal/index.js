@@ -7,7 +7,7 @@ import {
     Modal
 } from "react-bootstrap";
 
-const ProfileModalComponent = ({ navigationModalState, localization, loginAction, user, setNavigationModalState }) => {
+const ProfileModalComponent = ({ navigationModalState, loginAction, user, setNavigationModalState }) => {
     return (
         <Modal id="myProfileModal" show={navigationModalState}
             backdrop='static'
@@ -19,8 +19,8 @@ const ProfileModalComponent = ({ navigationModalState, localization, loginAction
             </Modal.Header>
             <Modal.Body>
                 {user.isAuthenticated ?
-                    <NavigationItemLogin localization={localization} loginAction={loginAction} user={user} /> :
-                    <NavigationItemWithoutLogin localization={localization} loginAction={loginAction} setNavigationModalState={setNavigationModalState}/>
+                    <NavigationItemLogin loginAction={loginAction} user={user} /> :
+                    <NavigationItemWithoutLogin loginAction={loginAction} setNavigationModalState={setNavigationModalState}/>
                 }
             </Modal.Body>
         </Modal>

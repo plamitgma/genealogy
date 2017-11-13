@@ -1,179 +1,79 @@
 import axiosClient from '../utils/axiosClient';
 import { toast } from 'react-toastify';
+import { authConfig } from './../config';
 
 export const CHANGE_USER_DATA = 'CHANGE_USER_DATA';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const SIGN_UP_ERROR = 'SIGN_UP_ERROR';
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_ERROR = 'FORGOT_PASSWORD_ERROR';
-export const USER_LOUGOUT = 'USER_LOUGOUT';
-export const UPDATE_HAS_VENUE = 'UPDATE_HAS_VENUE';
 
 export function handleLogout() {
   return (dispatch) => {
-    window.localStorage.removeItem('authToken');
-    const data = {
-      isAuthenticated: false,
-      info: null
-    };
+    firebase.auth().signOut().then(function () {
+      const data = {
+        isAuthenticated: false,
+        info: null
+      };
+      dispatch((changeUserData(data)));
+    }, function (error) {
+      // An error happened.
+    });
+
+  }
+}
+
+export function changeUserData(data) {
+  return dispatch => {
     dispatch({
       type: CHANGE_USER_DATA,
       data
     })
-    dispatch({
-      type: USER_LOUGOUT
-    })
   }
 }
 
-export function handleLogin(loginData, successCallback) {
+
+export function handleLogin(isFB, successCallback) {
   return (dispatch) => {
-    const url = 'auth/sign_in';
-    dispatch(login(url, loginData, successCallback));
-  }
-}
-
-export function handleLoginWithFacebook(accessToken, successCallback) {
-  return (dispatch) => {
-    const fbLogin = {
-      access_token: accessToken
-    };
-    const url = 'auth/facebook_auth';
-    dispatch(login(url, fbLogin, successCallback));
-  }
-}
-
-export function handleLoginWithGoogle(idToken, successCallback) {
-  return (dispatch) => {
-    const ggLogin = {
-      id_token: idToken
-    };
-    const url = 'auth/google_auth';
-    dispatch(login(url, ggLogin, successCallback));
-  }
-}
-
-const login = (url, loginData, successCallback) => {
-  return dispatch => {
-    axiosClient.post(url, JSON.stringify(loginData))
-      .then(response => {
-        if (response && response.data) {
-          if (successCallback)
-            successCallback.successFunction(successCallback.params);
-          window.localStorage.setItem('authToken', JSON.stringify(response.headers));
-          const data = {
-            isAuthenticated: true,
-            info: response.data.data
+    let provider = null;
+    if (isFB) {
+      provider = new firebase.auth.FacebookAuthProvider();
+    } else {
+      provider = new firebase.auth.GoogleAuthProvider();
+    }
+    authConfig.facebookPermissions.forEach(permission => provider.addScope(permission));
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        const displayName = result.user.displayName;
+        const photoURL = result.user.photoURL;
+        const email = result.user.email;
+        var token = result.credential.accessToken;
+        firebase.database().ref(`users/${result.user.uid}`).set({
+          token,
+          displayName,
+          photoURL,
+          email,
+          lastTimeLoggedIn: firebase.database.ServerValue.TIMESTAMP
+        });
+        const data = {
+          isAuthenticated: true,
+          info: {
+            displayName,
+            photoURL,
+            email
           }
-          return dispatch({
-            type: CHANGE_USER_DATA,
-            data
-          });
         }
-      })
-      .catch(error => {
+        return dispatch((changeUserData(data)));
+      }).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
         return dispatch({
           type: LOGIN_ERROR,
           error
         });
       });
-  }
-}
-
-export function handleSignUp(data, successCallback) {
-  return (dispatch) => {
-    axiosClient.post(`auth`, JSON.stringify(data))
-      .then(response => {
-        if (response && response.data) {
-          if (successCallback)
-            successCallback();
-        }
-      })
-      .catch(error => {
-        return dispatch({
-          type: SIGN_UP_ERROR,
-          error
-        });
-      });
-  }
-}
-
-export function updateProfile(data) {
-  return (dispatch) => {
-    axiosClient.put('user_profiles/update', JSON.stringify({ user: data }))
-      .then(reponse => {
-        dispatch(getCurrentUser());
-        toast.success("Update Profile Successfully.");
-      })
-      .catch(error => {
-        console.error(error)
-      })
-  }
-}
-
-export function changePassword(data, successCallback, errorCallback) {
-  return (dispatch) => {
-    axiosClient.put('auth/password', JSON.stringify(data))
-      .then(reponse => {
-        if (successCallback) {
-          successCallback();
-        }
-      })
-      .catch(error => {
-        if (errorCallback) {
-          errorCallback(error.response.data);
-        }
-      })
-  }
-}
-
-export function handleForgotPassword(forgotPasswordData) {
-  return (dispatch) => {
-    axiosClient.post(`auth/password`, JSON.stringify(forgotPasswordData))
-      .then(response => {
-        if (response && response.data) {
-          var data = response.data;
-          return dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            data
-          });
-        }
-      })
-      .catch(error => {
-        return dispatch({
-          type: FORGOT_PASSWORD_ERROR,
-          error
-        });
-      });
-  }
-}
-
-export function getCurrentUser() {
-  return (dispatch) => {
-    axiosClient.get(`user_profiles/show`)
-      .then(response => {
-        if (response && response.data) {
-          const data = {
-            isAuthenticated: true,
-            info: response.data.user
-          }
-          dispatch({
-            type: CHANGE_USER_DATA,
-            data
-          })
-        }
-      })
-      .catch(err => {
-        window.localStorage.removeItem('authToken');
-      });
-  }
-}
-
-export function updateHasVenue(data) {
-  return (dispatch) => {
-    dispatch({
-      type: UPDATE_HAS_VENUE,
-      data
-    })
   }
 }

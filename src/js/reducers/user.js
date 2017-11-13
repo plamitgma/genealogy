@@ -9,9 +9,6 @@ const initialState = {
 
 const actionsMap = {
     [CHANGE_USER_DATA]: (state, data) => {
-        if (data.info && data.info.profile_picture) {
-            data.info.profile_picture = data.info.profile_picture + '?' + Date.now();
-        }
         return {
             ...state,
             ...data

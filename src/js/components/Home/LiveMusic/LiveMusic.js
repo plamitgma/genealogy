@@ -3,10 +3,9 @@ import NavigationComponent from './Navigation';
 import SearchComponent from './Search';
 import './LiveMusic.less';
 
-const LiveMusicComponent = ({ localization, user, loginAction }) =>
+const LiveMusicComponent = ({ user, loginAction }) =>
     <header className="new-home-header">
         <NavigationComponent
-            localization={localization}
             user={user}
             loginAction={loginAction}
         />

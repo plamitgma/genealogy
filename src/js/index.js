@@ -5,12 +5,16 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import 'babel-polyfill';
 import logger from 'dev/logger';
-
 import rootReducer from 'reducers';
+import { firebaseConfig } from './config';
 
-import App from 'views/App';
+import App from './views/App';
 
 const isProduction = process.env.NODE_ENV === 'production';
+
+if (window.firebase) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 // Creating store
 let store = null;

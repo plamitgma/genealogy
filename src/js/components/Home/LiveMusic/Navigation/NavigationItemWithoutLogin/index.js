@@ -17,10 +17,10 @@ class NavigationItemWithoutLoginComponent extends React.Component {
     }
     
     render() {
-        const { localization, loginAction, setNavigationModalState } = this.props;
+        const { loginAction, setNavigationModalState } = this.props;
         return (
             <div>
-                <LoginComponent localization={localization}
+                <LoginComponent 
                     setLoginModalState={this.setLoginModalState}
                     loginModalState={this.state.loginModalState}
                     loginAction={loginAction} />
@@ -29,7 +29,7 @@ class NavigationItemWithoutLoginComponent extends React.Component {
                         <a>
                             <img className="pull-left navigation-icon"
                                 src={require('../../../../../../assets/img/home/login/login.png')} />
-                            <span>{localization.home.userProfile.login}</span>
+                            <span>Đăng nhập</span>
                             <img className="pull-right"
                                 src={require('../../../../../../assets/img/home/login/arrow-down.png')} />
                         </a>

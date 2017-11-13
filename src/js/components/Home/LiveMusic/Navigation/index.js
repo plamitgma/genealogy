@@ -42,7 +42,6 @@ class NavigationComponent extends React.Component {
 
     render() {
         const {
-            localization, 
             loginAction,
             user
         } = this.props;
@@ -64,7 +63,6 @@ class NavigationComponent extends React.Component {
                 </div>
                 <ProfileModalComponent
                     navigationModalState={this.state.navigationModalState}
-                    localization={localization}
                     loginAction={loginAction}
                     user={user}
                     setNavigationModalState={this.setNavigationModalState} />

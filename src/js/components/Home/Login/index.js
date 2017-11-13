@@ -10,16 +10,18 @@ import {
 } from "react-bootstrap";
 
 class LoginComponent extends Component {
-    constructor(props, localization) {
+    constructor(props) {
         super(props);
     }
 
     handleFacebookClick = () => {
-
+        const { loginAction } = this.props;
+        loginAction.handleLogin(true);
     };
 
     handleGoogleClick = () => {
-
+        const { loginAction } = this.props;
+        loginAction.handleLogin(false);
     }
 
     render() {
@@ -46,7 +48,7 @@ class LoginComponent extends Component {
                                             onClick={this.handleFacebookClick}
                                         >
                                             <span className="fa fa-facebook pull-left" />
-                                            {this.props.localization.home.login.logInWithFacebook}
+                                            Đăng nhập với Facebook
                                         </Button>
                                     </FormGroup>
                                 </Col>
@@ -59,7 +61,7 @@ class LoginComponent extends Component {
                                             onClick={this.handleGoogleClick}
                                         >
                                             <span className="fa fa-google-plus pull-left" />
-                                            {this.props.localization.home.login.logInWithGoogle}
+                                            Đăng nhập với Google
                                         </Button>
                                     </FormGroup>
                                 </Col>

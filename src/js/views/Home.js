@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import localization from "../language";
 import LiveMusicComponent from "../components/Home/LiveMusic/LiveMusic";
 import FacebookComponent from "../components/Home/Facebook/Facebook";
 import ServiceComponent from "../components/Home/Service/Service";
@@ -25,15 +24,13 @@ class HomePageComponent extends React.Component {
             handleLogin: this.props.handleLogin
         }
 
-        const locale = localization["VN"];
         return (
             <div className="new-home-page">
                 <LiveMusicComponent
-                    localization={locale}
                     loginAction={loginAction}
                     user={user} />
-                <ServiceComponent localization={locale} />
-                <FacebookComponent localization={locale} />
+                <ServiceComponent />
+                <FacebookComponent />
             </div>
         );
     }

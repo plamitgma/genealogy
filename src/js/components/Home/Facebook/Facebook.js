@@ -1,7 +1,7 @@
 import React from 'react';
 import './Facebook.less';
 
-const FacebookComponent = ({localization}) =>
+const FacebookComponent = () =>
     <section className="social-container">
         <div className="container social-icon-box">
             <img src={require('../../../../assets/img/new-home/social-icon.png')} />

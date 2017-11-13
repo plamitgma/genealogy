@@ -7,7 +7,7 @@ import {
   Alert
 } from "react-bootstrap";
 
-const ConfirmationComponent = ({ isShow, onConfirm, onHide, localization, message }) =>
+const ConfirmationComponent = ({ isShow, onConfirm, onHide, message }) =>
   <Modal id="confirmationModal" show={isShow}
     onHide={onHide}>
     <Modal.Header>
@@ -22,15 +22,14 @@ const ConfirmationComponent = ({ isShow, onConfirm, onHide, localization, messag
           bsSize="large"
           className="confirm-button"
           onClick={onConfirm}>
-          {localization.yes}
+          Yes
         </Button>
         <Button
           bsStyle="primary"
           bsSize="large"
           className="close-button"
           onClick={onHide}>
-          {localization.no
-          }
+          No
         </Button>
       </form>
     </Modal.Body>
