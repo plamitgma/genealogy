@@ -29,10 +29,34 @@ export function changeUserData(data) {
   }
 }
 
+const getUserData = (result) => {
+  return dispatch => {
+    const displayName = result.user.displayName;
+    const photoURL = result.user.photoURL;
+    const email = result.user.email;
+    var token = result.credential.accessToken;
+    firebase.database().ref(`users/${result.user.uid}`).set({
+      token,
+      displayName,
+      photoURL,
+      email,
+      lastTimeLoggedIn: firebase.database.ServerValue.TIMESTAMP
+    });
+    const data = {
+      isAuthenticated: true,
+      info: {
+        displayName,
+        photoURL,
+        email
+      }
+    }
+    return dispatch((changeUserData(data)));
+  }
+}
 
 export function handleLogin(isFB, successCallback) {
   return (dispatch) => {
-    let provider = null;
+    var provider = null;
     if (isFB) {
       provider = new firebase.auth.FacebookAuthProvider();
       authConfig.facebookPermissions.forEach(permission => provider.addScope(permission));
@@ -42,26 +66,7 @@ export function handleLogin(isFB, successCallback) {
     }
     firebase.auth().signInWithPopup(provider)
       .then((result) => {
-        const displayName = result.user.displayName;
-        const photoURL = result.user.photoURL;
-        const email = result.user.email;
-        var token = result.credential.accessToken;
-        firebase.database().ref(`users/${result.user.uid}`).set({
-          token,
-          displayName,
-          photoURL,
-          email,
-          lastTimeLoggedIn: firebase.database.ServerValue.TIMESTAMP
-        });
-        const data = {
-          isAuthenticated: true,
-          info: {
-            displayName,
-            photoURL,
-            email
-          }
-        }
-        return dispatch((changeUserData(data)));
+        dispatch(getUserData(result));
       }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -71,10 +76,38 @@ export function handleLogin(isFB, successCallback) {
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
         // ...
-        return dispatch({
-          type: LOGIN_ERROR,
-          error
-        });
+
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          // Step 2.
+          // User's email already exists.
+          // The pending Facebook credential.
+          var pendingCred = error.credential;
+          // The provider account's email address.
+          var email = error.email;
+          // Get registered providers for this email.
+          firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
+            console.log(providers);
+            let provider = null;
+            if(providers[0] == "google.com") {
+              provider = new firebase.auth.GoogleAuthProvider();
+              provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+            } else {
+              provider = new firebase.auth.FacebookAuthProvider();
+              authConfig.facebookPermissions.forEach(permission => provider.addScope(permission));
+            }
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+              result.user.link(pendingCred).then(function () {
+                dispatch(getUserData(result));
+                // Facebook account successfully linked to the existing Firebase user.
+              });
+            });
+          });
+        } else {
+          return dispatch({
+            type: LOGIN_ERROR,
+            error
+          });
+        }
       });
   }
 }
