@@ -35,10 +35,11 @@ export function handleLogin(isFB, successCallback) {
     let provider = null;
     if (isFB) {
       provider = new firebase.auth.FacebookAuthProvider();
+      authConfig.facebookPermissions.forEach(permission => provider.addScope(permission));
     } else {
       provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     }
-    authConfig.facebookPermissions.forEach(permission => provider.addScope(permission));
     firebase.auth().signInWithPopup(provider)
       .then((result) => {
         const displayName = result.user.displayName;
