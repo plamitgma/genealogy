@@ -1,0 +1,109 @@
+@import '../../../../styles/colors';
+
+*:focus {
+  outline: 0 !important;
+}
+
+#loginModal {
+  .modal-header {
+    background-color: @dark-indigo;
+    .close-image {
+      cursor: pointer;
+    }
+  }
+  .modal-footer {
+    text-align: center;
+  }
+
+  input:not([type=checkbox]) {
+    height: 50px;
+    font-size: 16px;
+    font-weight: 200;
+    border-radius: 2px;
+  }
+
+  button {
+    font-size: 14px;
+    font-weight: 200;
+    border-radius: 2px;
+  }
+
+  .fa {
+    font-size: 18px;
+    margin-top: 8px;
+    font-weight: 200;
+    border-radius: 2px;
+  }
+
+  .signup-button {
+    height: 50px;
+    width: 100%;
+    background-color: #cb0370;
+    border-color: #cb0370;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #d8d8d8;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+    font-size: 14px;
+    margin-top: 25px;
+    font-weight: 200;
+    text-transform: uppercase;
+  }
+
+  h2 span {
+    background: #fff;
+    padding: 0 10px;
+  }
+
+  .login-button .fa {
+    margin-top: 0;
+  }
+
+  .facebook {
+    height: 50px;
+    background-color: #4267b2;
+    border-color: #4267b2;
+  }
+
+  .google {
+    height: 50px;
+    background-color: #ea4747;
+    border-color: #ea4747;
+  }
+
+  a {
+    cursor: pointer;
+    color: #270c4c;
+  }
+
+  .login-link,
+  .forgot-password-link {
+    margin-left: 5px;
+    text-decoration: underline;
+  }
+
+  .close-link {
+    font-size: 30px;
+    font-weight: 100px;
+    margin-top: 0;
+  }
+
+  .remember-me {
+    margin: 0;
+  }
+
+  .require-login-text {
+    text-align: center;
+  }
+
+  @media (max-width: 767px) {
+    .google {
+      margin-top: 10px;
+    }
+  }
+}

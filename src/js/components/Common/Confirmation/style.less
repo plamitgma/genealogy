@@ -1,0 +1,40 @@
+@import '../../../../styles/colors';
+
+#notificationModal, #confirmationModal {
+    .modal-header {
+        background-color: @dark-indigo;
+        .close-image {
+            cursor: pointer;
+        }
+    }
+    .warning-text {
+        text-align: center;
+    }
+}
+
+#confirmationModal {
+    .confirm-button, .close-button {
+        height: 50px;
+        width: 49%;
+        background-color: #cb0370;
+        border-color: #cb0370;
+        text-transform: uppercase;
+    }
+
+    .confirm-button {
+        margin-right: 2%;
+    }
+}
+
+#notificationModal {
+    .modal-body {
+        min-height: 160px;
+    }
+    .ok-button {
+        height: 50px;
+        width: 100%;
+        background-color: #cb0370;
+        border-color: #cb0370;
+        text-transform: uppercase;
+    }
+}

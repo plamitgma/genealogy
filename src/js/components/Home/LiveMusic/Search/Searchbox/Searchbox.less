@@ -1,0 +1,104 @@
+@import '../../../../../../styles/colors';
+
+.other-country-search-box {
+    width: 100%;
+    .react-google-search-box {
+        text-align: left;
+        display: inline-block;
+        input {
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: none;
+            border-radius: 0;
+            height: 42px;
+        }
+    }
+    .react-google-search-box, .searchbox-venue-type, .search-text-box, .button-search-box {
+        width: 100%;
+        margin-bottom: 5px;
+        border-radius: 4px;
+        background-color: @primary-white;
+        .form-control {
+            border: none;
+            box-shadow: none;
+        }
+    }
+
+    .advance-search-box {
+        width: 100%;
+        display: inline-block;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 5px 10px;
+        .advance-search-button-box {
+            width: 100%;
+            .advance-search-button {
+                margin-bottom: 10px;
+            }
+        }
+        margin-bottom: 5px;
+    }
+
+    .advance-search-button {
+        width: 164px;
+        height: 27px;
+        border-radius: 15px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: inline-block;
+        line-height: 27px;
+        font-weight: 300;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    .searchbox-venue-type {
+        position: relative;
+        .type-venue-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+        }
+        select {
+            text-indent: 35px;
+        }
+    }
+
+    .react-google-search-box, .search-text-box {
+        border-right: solid 1px #d5d5d5;
+    }
+    .button-search-box {
+        button {
+            padding: 0;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            background-clip: content-box;
+        }
+    }
+    @media(min-width:768px) {
+        margin: auto;
+        width: 600px;
+        .react-google-search-box, .searchbox-venue-type, .search-text-box, .button-search-box {
+            display: inline-block;
+            border-radius: 0;
+            float: left;
+        }
+        .react-google-search-box {
+            width: 540px;
+        }
+        .searchbox-venue-type, .search-text-box {
+            width: 540px;
+        }
+        .button-search-box {
+            width: 60px;
+            button {
+                padding: 1px;
+            }
+        }
+    }
+}
