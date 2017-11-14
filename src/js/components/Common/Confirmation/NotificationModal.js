@@ -11,7 +11,7 @@ const NotificationModalComponent = ({ isShow, onHide, message }) =>
   <Modal id="notificationModal" show={isShow}
     onHide={onHide}>
     <Modal.Header>
-      <img className="pull-left" src={require('../../../../assets/img/home/login/header.png')} />
+      <p>Tộc Phan</p>
       <img className="pull-right  close-image" src={require('../../../../assets/img/home/login/close-icon.png')} onClick={onHide} />
     </Modal.Header>
     <Modal.Body>

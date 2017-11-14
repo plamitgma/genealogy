@@ -31,7 +31,7 @@ class LoginComponent extends Component {
                 <Modal id="loginModal" show={loginModalState}
                     onHide={() => setLoginModalState(false)}>
                     <Modal.Header>
-                        <img className="pull-left" src={require('../../../../assets/img/home/login/header.png')} />
+                        <p>Tộc Phan</p>
                         <img className="pull-right  close-image"
                             src={require('../../../../assets/img/home/login/close-icon.png')}
                             onClick={() => setLoginModalState(false)} />

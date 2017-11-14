@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import LiveMusicComponent from "../components/Home/LiveMusic/LiveMusic";
 import FacebookComponent from "../components/Home/Facebook/Facebook";
 import ServiceComponent from "../components/Home/Service/Service";
+import AddPerson from "../components/Person/AddPerson";
 
 import {
     handleLogout,
@@ -29,6 +30,7 @@ class HomePageComponent extends React.Component {
                 <LiveMusicComponent
                     loginAction={loginAction}
                     user={user} />
+                <AddPerson />
                 <ServiceComponent />
                 <FacebookComponent />
             </div>

@@ -7,7 +7,7 @@ export default class NotFound extends Component {
     return (
       <div className='NotFound'>
         <NavLink exact to='/'>
-          <img className="home_logo" src={require('../../../assets/img/not_found_logo.png')} />
+          <p className="home_logo">Tộc Phan</p>
         </NavLink>
         <div className="content">
           <img src={require('../../../assets/img/not_found.png')} />

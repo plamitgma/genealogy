@@ -13,7 +13,7 @@ const ProfileModalComponent = ({ navigationModalState, loginAction, user, setNav
             backdrop='static'
             onHide={() => setNavigationModalState(false)}>
             <Modal.Header>
-                <img className="pull-left" src={require('../../../assets/img/home/login/header.png')} />
+                <p>Tộc Phan</p>
                 <img className="pull-right close-image"
                     src={require('../../../assets/img/home/login/close-icon.png')} onClick={() => setNavigationModalState(false)} />
             </Modal.Header>

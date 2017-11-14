@@ -54,7 +54,7 @@ const getUserData = (result) => {
   }
 }
 
-export function handleLogin(isFB, successCallback) {
+export function handleLogin(isFB) {
   return (dispatch) => {
     var provider = null;
     if (isFB) {
