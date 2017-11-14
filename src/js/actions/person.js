@@ -11,8 +11,7 @@ export function addPerson(person) {
             positionInFamily,
             photo,
             parentId,
-            wifeId,
-            husbandId,
+            husbandWifeInfo,
             isGenerated,
             createdAt: firebase.database.ServerValue.TIMESTAMP
           });

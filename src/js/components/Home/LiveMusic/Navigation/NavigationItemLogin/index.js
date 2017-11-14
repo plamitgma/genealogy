@@ -8,7 +8,17 @@ const NavigationItemLoginComponent = ({ loginAction, user }) => {
         <div>
             <div className="profilePicture" style={{ backgroundImage: "url(" + (user.info.photoURL || require('../../../../../../assets/img/home/login/profile_default.png')) + ")" }}>
             </div>
+            <p className="text-center display-name">{user.info.displayName}</p>
             <ul>
+                <li>
+                    <a>
+                        <img className="pull-left navigation-icon"
+                            src={require('../../../../../../assets/img/home/login/venueDashboard.png')} />
+                        <span>Quản lý thông tin</span>
+                        <img className="pull-right"
+                            src={require('../../../../../../assets/img/home/login/arrow-down.png')} />
+                    </a>
+                </li>
                 <li onClick={handleLogoutUser}>
                     <a>
                         <img className="pull-left navigation-icon"

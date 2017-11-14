@@ -1,7 +1,7 @@
 .add-person-container {
     padding-top: 20px;
     .left-content {
-        width: 230px;
+        width: 210px;
         padding-right: 20px;
         padding-top: 210px;
         display: inline-block;
@@ -9,35 +9,29 @@
         position: relative;
         max-width: 100%;
         margin: auto;
-        .venues-logo {
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;      
-            bottom: 0;
-            right: 0;      
-        }
+        background-size: cover;
+        background-position: center;
         .venues-logo-upload {
             width: 30px;
             position: absolute;
             top: 10px;
             right: 10px;
         }
-
         .input-upload-file {
+            cursor: pointer;
             position: absolute;
             left: 0;
             top: 0;
             right: 0;
             bottom: 0;
             width: 100%;
-            cursor: pointer;
             opacity: 0;
             z-index: 1;
         }
     }
 
     .right-content {
+        margin-left: 20px;
         width: calc(100% ~'-' 230px);
         display: inline-block;
         .form-group {
@@ -59,11 +53,13 @@
 
     @media(max-width:767px) {
         .left-content {
-            margin: auto;
+            margin-left: 50%;
+            transform: translateX(-50%);
         }
 
         .right-content {
             width: 100%;
+            margin-left: 0;
             .form-group {
                 width: 100%;
                 margin-right: 0;
