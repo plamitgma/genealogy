@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import "./style.less";
 import DateTime from 'react-datetime';
 import AddHusbandWifeInfoComponent from './AddHusbandWifeInfo';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
+import SelectPersonModal from './SelectPersonModal';
 
+import utils from '../../utils';
 class AddPerson extends Component {
     constructor() {
         super();
@@ -12,28 +16,51 @@ class AddPerson extends Component {
                 fullName: "",
                 calledName: "",
                 gender: true,
-                dateOfBirth: "",
+                dateOfBirth: null,
                 address: "",
                 phone: "",
-                dateOfDeath: "",
+                dateOfDeath: null,
                 positionInFamily: "",
-                photo: "",
-                parentId: "",
-                husbandWifeInfo: {}
+                photo: null,
+                parentId: null,
+                parentName: "",
+                husbandWifeInfo: {},
+                description: ""
             },
-            addHusbandWifeInfoModalState: false
+            triggerValidate: false,
+            addHusbandWifeInfoModalState: false,
+            selectPersonModalState: false
         }
         this.getValidationState = this.getValidationState.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUploadLogo = this.handleUploadLogo.bind(this);
+        this.savePersonInformation = this.savePersonInformation.bind(this);
+        this.handleChooseParent = this.handleChooseParent.bind(this);
+    }
+
+    componentWillMount() {
+        const currentId = this.context.router.route.match.params.id;
+        if (currentId) {
+            const { currentPersonDashboard } = this.props;
+            if (!currentPersonDashboard) {
+                const { getPersonById } = this.props;
+                getPersonById(currentId);
+            } else {
+                let nextPerson = {
+                    ...currentPersonDashboard,
+                    husbandWifeInfo: currentPersonDashboard.husbandWifeInfo || {}
+                }
+                this.setState({
+                    person: nextPerson
+                })
+            }
+        }
     }
 
     getValidationState(field) {
-        const length = this.state.person[field].length;
-        if (length > 10) return 'success';
-        else if (length > 5) return 'warning';
-        else if (length > 0) return 'error';
-        return null;
+        if (!this.state.triggerValidate)
+            return null;
+        return !this.state.person[field] ? 'error' : 'success';
     }
 
     handleChange(value, field) {
@@ -41,7 +68,11 @@ class AddPerson extends Component {
         if (field == "gender") {
             person[field] = value == "true" ? true : false;
         } else {
-            person[field] = value
+            if(value instanceof Date) {
+                person[field] = utils.formatDate(value);
+            } else {
+                person[field] = value
+            }
         }
         this.setState({ person });
     }
@@ -69,7 +100,48 @@ class AddPerson extends Component {
         }
     }
 
+    savePersonInformation() {
+        this.setState({
+            triggerValidate: true
+        });
+        if (!this.state.person.fullName)
+            return;
+
+        const { addPerson } = this.props;
+        addPerson(this.state.person);
+        this.context.router.history.push('/manage-info');
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        const { currentPersonDashboard } = nextProps;
+        if (this.context.router.route.match.params.id && currentPersonDashboard) {
+            if (currentPersonDashboard.id != this.state.person.id) {
+                let nextPerson = {
+                    ...currentPersonDashboard,
+                    husbandWifeInfo: currentPersonDashboard.husbandWifeInfo || {}
+                }
+                this.setState({
+                    person: nextPerson
+                })
+            }
+        }
+    }
+
+    handleChooseParent(parent) {
+        var person = { ...this.state.person };
+        person.parentId = parent.id;
+        person.parentName = parent.fullName;
+        this.setState({
+            person,
+            selectPersonModalState: false
+        });
+    }
+
     render() {
+        const { currentPersonDashboard, persons } = this.props;
+        if (this.context.router.route.match.params.id && !currentPersonDashboard) {
+            return null;
+        }
         return (
             <div className="container add-person-container">
                 <div className="left-content" style={{ backgroundImage: "url(" + (this.state.person.photo ? this.state.person.photo : require('../../../assets/img/default.png')) + ")" }}>
@@ -90,7 +162,13 @@ class AddPerson extends Component {
                                 }
                             })}
                         />
+                        <SelectPersonModal selectPersonModalState={this.state.selectPersonModalState}
+                            setSelectPersonModalState={() => this.setState({ selectPersonModalState: false })}
+                            persons={persons}
+                            handleSelectPerson={this.handleChooseParent}
+                        />
                         <FormGroup
+                            validationState={this.getValidationState('fullName')}
                             controlId="formBasicText">
                             <ControlLabel>Họ tên</ControlLabel>
                             <FormControl
@@ -142,7 +220,7 @@ class AddPerson extends Component {
                                 value={this.state.person.dateOfBirth}
                                 dateFormat="DD/MM/YYYY"
                                 timeFormat={false}
-                                onChange={(e) => this.handleChange(e.target.value, 'dateOfBirth')} />
+                                onChange={(e) => this.handleChange(e._d, 'dateOfBirth')} />
                         </FormGroup>
                         <FormGroup
                             controlId="formBasicText">
@@ -155,7 +233,7 @@ class AddPerson extends Component {
                                 value={this.state.person.dateOfDeath}
                                 dateFormat="DD/MM/YYYY"
                                 timeFormat={false}
-                                onChange={(e) => this.handleChange(e.target.value, 'dateOfDeath')} />
+                                onChange={(e) => this.handleChange(e._d, 'dateOfDeath')} />
                         </FormGroup>
                         <FormGroup
                             controlId="formBasicText">
@@ -181,11 +259,10 @@ class AddPerson extends Component {
                             <ControlLabel>Ba</ControlLabel>
                             <div className="input-group">
                                 <input type="text" className="form-control"
-                                    value={this.state.person.parentId}
+                                    value={this.state.person.parentName}
                                     disabled={true}
-                                    onChange={(e) => this.handleChange(e.target.value, 'parentId')}
                                     placeholder="Chọn ba" />
-                                <span className="input-group-addon">...</span>
+                                <span className="input-group-addon" onClick={() => this.setState({ selectPersonModalState: true })}>...</span>
                             </div>
                         </FormGroup>
                         <FormGroup>
@@ -201,11 +278,37 @@ class AddPerson extends Component {
                                 <span className="input-group-addon" onClick={() => this.setState({ addHusbandWifeInfoModalState: true })}>...</span>
                             </div>
                         </FormGroup>
+                        <FormGroup
+                            className="text-area"
+                            controlId="formBasicText">
+                            <ControlLabel>Mô tả</ControlLabel>
+                            <FormControl componentClass="textarea"
+                                placeholder="Mô tả"
+                                value={this.state.person.description}
+                                onChange={(e) => this.handleChange(e.target.value, 'description')}
+                            />
+                        </FormGroup>
+                        <FormGroup
+                            controlId="formBasicText">
+                            <Button bsClass="btn-primary form-control" onClick={this.savePersonInformation}>
+                                Lưu Thông Tin
+                            </Button>
+                        </FormGroup>
                     </form>
                 </div>
             </div>
         )
     }
 }
+
+AddPerson.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired,
+            replace: PropTypes.func.isRequired
+        }).isRequired,
+        staticContext: PropTypes.object
+    }).isRequired
+};
 
 export default AddPerson;

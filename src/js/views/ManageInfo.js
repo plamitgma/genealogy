@@ -7,6 +7,13 @@ import {
     handleLogin
 } from "../actions/user";
 
+import {
+    addPerson,
+    getAll as getAllPerson,
+    getById as getPersonById,
+    selectCurrentPerson
+} from "../actions/person";
+
 class HomePageComponent extends React.Component {
     constructor() {
         super();
@@ -15,7 +22,11 @@ class HomePageComponent extends React.Component {
     render() {
         const {
             user,
-            match
+            person,
+            match,
+            addPerson,
+            getPersonById,
+            getAllPerson
         } = this.props;
 
         const loginAction = {
@@ -31,11 +42,16 @@ class HomePageComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        person: state.person
     };
 };
 
 export default connect(mapStateToProps, {
     handleLogout,
-    handleLogin
+    handleLogin,
+    addPerson,
+    getPersonById,
+    selectCurrentPerson,
+    getAllPerson
 })(HomePageComponent);

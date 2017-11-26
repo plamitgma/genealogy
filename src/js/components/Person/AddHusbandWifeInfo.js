@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import DateTime from 'react-datetime';
-
+import utils from '../../utils';
 import "./AddHusbandWifeInfo.less";
 
 import {
@@ -11,7 +11,11 @@ import {
 const AddHusbandWifeInfoComponent = ({ addHusbandWifeInfoModalState, setAddHusbandWifeInfoState, husbandWifeInfo, updateHusbandWifeInfo }) => {
     var info = husbandWifeInfo || {};
     const handleChange = (value, field) => {
-        info[field] = value;
+        if (value instanceof Date) {
+            info[field] = utils.formatDate(value);
+        } else {
+            info[field] = value;
+        }
     }
 
     const handleUpdateHusbandWifeInfo = () => {

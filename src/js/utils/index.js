@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import axios from 'axios';
 import cities_district from '../constant/cities_district';
-import {isEmpty} from "./validation";
+import { isEmpty } from "./validation";
 
 Date.prototype.addHours = function (hour) {
     let h = parseInt(hour);
@@ -9,7 +9,7 @@ Date.prototype.addHours = function (hour) {
     return this;
 }
 
-String.prototype.replaceAll = function(search, replacement) {
+String.prototype.replaceAll = function (search, replacement) {
     var target = this;
     return target.split(search).join(replacement);
 };
@@ -197,17 +197,18 @@ const getUTCTimeFromDate = (date) => {
         now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
 }
 
-const formatDateTimeString = (date, locale) => {
-    const formatLanguage = locale || "en-us";
+const formatDate = date => {
+    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+}
+
+const formatDateTimeString = (date) => {
+    const formatLanguage = "en-us";
     const options = {
         day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        month: "short",
-        weekday: "long",
+        month: "numeric",
         year: "numeric",
     };
-    return date.toLocaleTimeString(formatLanguage, options);
+    return date.toLocaleDateString(formatLanguage, options);
 }
 
 const getUserNavigationItem = () => {
@@ -333,6 +334,7 @@ const utils = {
     getAllConfigAuthToken,
     getCurrentTimeFromUTC,
     getUTCTimeFromDate,
+    formatDate,
     formatDateTimeString,
     getUserNavigationItem,
     getCurrentShoppingCart,

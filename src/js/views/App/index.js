@@ -99,8 +99,8 @@ class App extends Component {
                 <BrowserRouter>
                     <Switch>
                         <Route exact path={publicPath} component={HomeComponent} />
-                        <Route exact path={routeCodes.MANAGE_INFO} component={ManageInfoPage} />
-                        <Route path='*' component={NotFound} />
+                        <Route path={routeCodes.MANAGE_INFO} component={ManageInfoPage} />
+                        {<Route path='*' component={NotFound} />}
                     </Switch>
                 </BrowserRouter>
 

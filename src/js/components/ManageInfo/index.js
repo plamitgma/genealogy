@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.less';
+import PersonList from '../Person/PersonList';
 import AddPerson from '../Person/AddPerson';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import ProfileModalComponent from '../ProfileModal';
 
 class ManageInfoComponent extends React.Component {
@@ -19,11 +20,23 @@ class ManageInfoComponent extends React.Component {
         })
     }
 
+    componentWillMount() {
+        const { person, getAllPerson } = this.props;
+        if (!person.persons) {
+            getAllPerson();
+        }
+    }
+
     render() {
         const {
             match,
             user,
-            loginAction
+            person,
+            loginAction,
+            getAllPerson,
+            addPerson,
+            selectCurrentPerson,
+            getPersonById
         } = this.props;
         return (
             <div className="container manage-info-container">
@@ -45,10 +58,29 @@ class ManageInfoComponent extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className="container header-bottom">
+                        <NavLink exact to={match.url} activeClassName="active-tab" className="">
+                            <span className="header-item-text">Danh sách họ hàng</span>
+                        </NavLink>
+                        <NavLink exact to={`${match.url}/add`} activeClassName="active-tab">
+                            <span className="header-item-text">Thêm thành viên</span>
+                        </NavLink>
+                    </div>
                 </nav>
 
                 <div className="row venue-dashboard-content">
-                    <AddPerson />
+                    <Route exact path={`${match.url}`} render={() => (
+                        <PersonList persons={person.persons} match={match} selectCurrentPerson={selectCurrentPerson} />
+                    )} />
+                    <Route exact path={`${match.url}/add`} render={() => (
+                        <AddPerson addPerson={addPerson} match={match} />
+                    )} />
+                    <Route exact path={`${match.url}/person/:id`} render={() => (
+                        <AddPerson addPerson={addPerson}
+                            getPersonById={getPersonById}
+                            persons={person.persons}
+                            currentPersonDashboard={person.currentPersonDashboard} />
+                    )} />
                 </div>
             </div>
         );
