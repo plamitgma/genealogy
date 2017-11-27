@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import './PersonList.less';
 
 const PersonList = ({ persons, match, selectCurrentPerson }) => {
-    if (!persons) {
+    if (persons.length == 0) {
         return (
             <h1>No data</h1>
         )
@@ -13,8 +13,7 @@ const PersonList = ({ persons, match, selectCurrentPerson }) => {
     return (
         <div className="person-list-container">
             {
-                Object.keys(persons).map((key) => {
-                    let person = persons[key];
+                persons.map((person) => {
                     return (
                         <div className="container person-container-item" key={person.id}>
                             <div className="person-container-item-info">

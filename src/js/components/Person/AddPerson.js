@@ -68,7 +68,7 @@ class AddPerson extends Component {
         if (field == "gender") {
             person[field] = value == "true" ? true : false;
         } else {
-            if(value instanceof Date) {
+            if (value instanceof Date) {
                 person[field] = utils.formatDate(value);
             } else {
                 person[field] = value
@@ -144,7 +144,7 @@ class AddPerson extends Component {
         }
         return (
             <div className="container add-person-container">
-                <div className="left-content" style={{ backgroundImage: "url(" + (this.state.person.photo ? this.state.person.photo : require('../../../assets/img/default.png')) + ")" }}>
+                <div className="left-content" style={{ backgroundImage: "url(" + (this.state.person.photo ? this.state.person.photo : require('../../../assets/img/profile.jpg')) + ")" }}>
                     <input className="input-upload-file" type="file" onChange={this.handleUploadLogo} accept=".png,.jpg,.jpeg,.gif" />
                     <img className="venues-logo-upload" src={require('../../../assets/icons/upload-media.png')} />
                 </div>
@@ -155,16 +155,18 @@ class AddPerson extends Component {
                             addHusbandWifeInfoModalState={this.state.addHusbandWifeInfoModalState}
                             setAddHusbandWifeInfoState={() => this.setState({ addHusbandWifeInfoModalState: false })}
                             husbandWifeInfo={this.state.person.husbandWifeInfo}
-                            updateHusbandWifeInfo={() => (info) => this.setState({
-                                person: {
-                                    ...this.state.person,
-                                    husbandWifeInfo: info
-                                }
-                            })}
+                            updateHusbandWifeInfo={(info) => {
+                                this.setState({
+                                    person: {
+                                        ...this.state.person,
+                                        husbandWifeInfo: info
+                                    }
+                                })
+                            }}
                         />
                         <SelectPersonModal selectPersonModalState={this.state.selectPersonModalState}
                             setSelectPersonModalState={() => this.setState({ selectPersonModalState: false })}
-                            persons={persons}
+                            persons={persons.filter(per => per.gender && per.id !== this.state.person.id)}
                             handleSelectPerson={this.handleChooseParent}
                         />
                         <FormGroup

@@ -22,7 +22,7 @@ class ManageInfoComponent extends React.Component {
 
     componentWillMount() {
         const { person, getAllPerson } = this.props;
-        if (!person.persons) {
+        if (person.persons.length == 0) {
             getAllPerson();
         }
     }
@@ -73,7 +73,7 @@ class ManageInfoComponent extends React.Component {
                         <PersonList persons={person.persons} match={match} selectCurrentPerson={selectCurrentPerson} />
                     )} />
                     <Route exact path={`${match.url}/add`} render={() => (
-                        <AddPerson addPerson={addPerson} match={match} />
+                        <AddPerson addPerson={addPerson} match={match} persons={person.persons}/>
                     )} />
                     <Route exact path={`${match.url}/person/:id`} render={() => (
                         <AddPerson addPerson={addPerson}

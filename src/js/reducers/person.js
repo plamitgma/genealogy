@@ -4,7 +4,7 @@ import {
 } from "../actions/person";
 
 const initialState = {
-    persons: null,
+    persons: [],
     currentPersonDashboard: null
 };
 

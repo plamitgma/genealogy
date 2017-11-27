@@ -55,9 +55,13 @@ export function getAll() {
         var persons = firebase.database().ref('person');
         persons.on('value', (snap) => {
             let data = snap.val() || {};
+            let result = [];
+            Object.keys(data).map((key) => {
+                result.push(data[key]);
+            })
             dispatch({
                 type: GET_ALL_PERSON,
-                data
+                data: result
             })
         });
     }
