@@ -5,9 +5,7 @@ import './PersonList.less';
 
 const PersonList = ({ persons, match, selectCurrentPerson }) => {
     if (persons.length == 0) {
-        return (
-            <h1>No data</h1>
-        )
+        return null;
     }
 
     return (
@@ -15,7 +13,7 @@ const PersonList = ({ persons, match, selectCurrentPerson }) => {
             {
                 persons.map((person) => {
                     return (
-                        <div className="container person-container-item" key={person.id}>
+                        <div className="person-container-item" key={person.id}>
                             <div className="person-container-item-info">
                                 <div className="photo"
                                     style={{ backgroundImage: "url(" + (person.photo || require('../../../assets/img/profile.jpg')) + ")" }}></div>

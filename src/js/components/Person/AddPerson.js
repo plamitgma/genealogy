@@ -6,6 +6,7 @@ import DateTime from 'react-datetime';
 import AddHusbandWifeInfoComponent from './AddHusbandWifeInfo';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import SelectPersonModal from './SelectPersonModal';
+import PersonList from './PersonList';
 
 import utils from '../../utils';
 class AddPerson extends Component {
@@ -138,7 +139,7 @@ class AddPerson extends Component {
     }
 
     render() {
-        const { currentPersonDashboard, persons } = this.props;
+        const { currentPersonDashboard, persons, selectCurrentPerson, match } = this.props;
         if (this.context.router.route.match.params.id && !currentPersonDashboard) {
             return null;
         }
@@ -166,7 +167,9 @@ class AddPerson extends Component {
                         />
                         <SelectPersonModal selectPersonModalState={this.state.selectPersonModalState}
                             setSelectPersonModalState={() => this.setState({ selectPersonModalState: false })}
-                            persons={persons.filter(per => per.gender && per.id !== this.state.person.id)}
+                            persons={persons.filter(per => per.gender
+                                && per.id !== this.state.person.id
+                                && per.parentId !== this.state.person.id)}
                             handleSelectPerson={this.handleChooseParent}
                         />
                         <FormGroup
@@ -296,6 +299,15 @@ class AddPerson extends Component {
                                 Lưu Thông Tin
                             </Button>
                         </FormGroup>
+                        {
+                            (this.context.router.route.match.params.id && currentPersonDashboard && currentPersonDashboard.children.length > 0) &&
+                            <FormGroup
+                                className="text-area"
+                                controlId="formBasicText">
+                                <ControlLabel>Con cái</ControlLabel>
+                                <PersonList persons={currentPersonDashboard.children} match={match} selectCurrentPerson={selectCurrentPerson} />
+                            </FormGroup>
+                        }
                     </form>
                 </div>
             </div>

@@ -31,10 +31,18 @@ export function addPerson(person) {
 
 export function selectCurrentPerson(data) {
     return dispatch => {
-        dispatch({
-            type: SELECT_CURRENT_PERSON_DASHBOARD,
-            data
-        })
+        firebase.database().ref('person').orderByChild('parentId').equalTo(data.id).on("value", function (snapshot) {
+            var children = [];
+            var result = snapshot.val() || {};
+            Object.keys(result).map((key) => {
+                children.push(result[key]);
+            })
+            data.children = children;
+            dispatch({
+                type: SELECT_CURRENT_PERSON_DASHBOARD,
+                data
+            })
+        });
     }
 }
 
@@ -42,10 +50,7 @@ export function getById(id) {
     return dispatch => {
         firebase.database().ref('/person/' + id).once('value').then(function (snapshot) {
             let data = snapshot.val();
-            dispatch({
-                type: SELECT_CURRENT_PERSON_DASHBOARD,
-                data
-            })
+            dispatch(selectCurrentPerson(data));
         });
     }
 }

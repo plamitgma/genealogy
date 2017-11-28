@@ -16,6 +16,28 @@ class AddHusbandWifeInfoComponent extends Component {
         }
         this.handleUpdateHusbandWifeInfo = this.handleUpdateHusbandWifeInfo.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleUploadLogo = this.handleUploadLogo.bind(this);
+    }
+
+    handleUploadLogo(e) {
+        if (e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const imageSize = file.size / 1024;
+            if (imageSize > 800) {
+                toast.warning('Dung lượng file quá lớn');
+                return;
+            }
+            const vm = this;
+            var reader = new FileReader();
+            (function (type) {
+                reader.onload = function (event) {
+                    var info = { ...vm.state.info };
+                    info.photo = event.target.result;
+                    vm.setState({ info });
+                }
+            })(file.type)
+            reader.readAsDataURL(file);
+        }
     }
 
     handleChange(value, field) {
@@ -48,6 +70,12 @@ class AddHusbandWifeInfoComponent extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <form>
+                        <FormGroup className="husband-wife-photo-section">
+                            <div className="husband-wife-photo" style={{ backgroundImage: "url(" + (this.state.info.photo ? this.state.info.photo : require('../../../assets/img/profile.jpg')) + ")" }}>
+                                <input className="input-upload-file" type="file" onChange={this.handleUploadLogo} accept=".png,.jpg,.jpeg,.gif" />
+                                <img className="logo-upload" src={require('../../../assets/icons/upload-media.png')} />
+                            </div>
+                        </FormGroup>
                         <FormGroup
                             controlId="formBasicText">
                             <ControlLabel>Họ tên</ControlLabel>
