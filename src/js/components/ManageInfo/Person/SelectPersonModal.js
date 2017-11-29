@@ -36,7 +36,7 @@ class SelectPersonModalComponent extends Component {
                 <Modal.Header>
                     <p>Tộc Phan</p>
                     <img className="pull-right close-image"
-                        src={require('../../../assets/img/home/login/close-icon.png')} onClick={() => setSelectPersonModalState(false)} />
+                        src={require('../../../../assets/img/home/login/close-icon.png')} onClick={() => setSelectPersonModalState(false)} />
                 </Modal.Header>
                 <Modal.Body>
                     <FormControl
@@ -50,7 +50,7 @@ class SelectPersonModalComponent extends Component {
                                 <div className="person-container-item" key={person.id} onClick={() => handleSelectPerson(person)}>
                                     <div className="person-container-item-info">
                                         <div className="photo"
-                                            style={{ backgroundImage: "url(" + (person.photo || require('../../../assets/img/profile.jpg')) + ")" }}></div>
+                                            style={{ backgroundImage: "url(" + (person.photo || require('../../../../assets/img/profile.jpg')) + ")" }}></div>
                                         <div className="information">
                                             <p className="name">
                                                 {person.fullName}</p>

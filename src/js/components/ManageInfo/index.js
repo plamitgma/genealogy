@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.less';
-import PersonList from '../Person/PersonList';
-import AddPerson from '../Person/AddPerson';
+import PersonList from './Person/PersonList';
+import AddPerson from './Person/AddPerson';
 import { Route, NavLink } from 'react-router-dom';
 import ProfileModalComponent from '../ProfileModal';
 

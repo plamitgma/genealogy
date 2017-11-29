@@ -3,51 +3,30 @@ import PropTypes from 'prop-types';
 import './Searchbox.less';
 
 class GoogleSearchBoxComponent extends React.Component {
-    static contextTypes = {
-        router: PropTypes.shape({
-            history: PropTypes.shape({
-                push: PropTypes.func.isRequired,
-                replace: PropTypes.func.isRequired
-            }).isRequired,
-            staticContext: PropTypes.object
-        }).isRequired
-    };
-
     constructor(props) {
         super(props);
         this.state = {
-            address: "",
+            keyword: "",
         };
-        this.handleSearchVenue = this.handleSearchVenue.bind(this)
+        this.handleSearchPerson = this.handleSearchPerson.bind(this);
     }
 
-    handleSearchVenue() {
-        const { currentCountry } = this.props;
+    handleSearchPerson() {
         const data = {
-            address: this.state.address,
-            info: null,
-            name: this.state.currentSearchText,
-            typeIds: this.state.currentVenueType
+            keyword: this.state.keyword,
         }
-        if (data.address || data.name || data.typeIds) {
-            data.country = currentCountry.countryName;
+        if (data.keyword) {
             const currentPath = this.context.router.route.location.pathname;
-            if (currentPath !== '/venue' && currentPath !== '/venue/onmap') {
-                this.context.router.history.push('/venue');
+            if (currentPath !== '/person') {
+                this.context.router.history.push('/person');
             }
-            this.props.searchVenue(data);
+            this.props.searchPerson(data);
         }
-    }
-
-    handleChangeSearchText(e) {
-        this.setState({
-            currentSearchText: e.target.value
-        })
     }
 
     handleSearchKey(e) {
         if (e.key === 'Enter') {
-            this.handleSearchVenue();
+            this.handleSearchPerson();
         }
     }
 
@@ -56,13 +35,15 @@ class GoogleSearchBoxComponent extends React.Component {
             <div className="other-country-search-box">
                 <div className="search-text-box">
                     <input type="text" className="form-control"
-                        value={this.state.currentSearchText}
+                        value={this.state.keyword}
                         onKeyPress={this.handleSearchKey.bind(this)}
-                        onChange={this.handleChangeSearchText.bind(this)}
+                        onChange={(e) => this.setState({
+                            keyword: e.target.value
+                        })}
                         placeholder="Tìm tên trong dòng họ" />
                 </div>
                 <div className="button-search-box">
-                    <button className="btn btn-primary" onClick={this.handleSearchVenue}>
+                    <button className="btn btn-primary" onClick={this.handleSearchPerson}>
                         <i className="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -70,5 +51,15 @@ class GoogleSearchBoxComponent extends React.Component {
         )
     }
 }
+
+GoogleSearchBoxComponent.contextTypes = {
+    router: PropTypes.shape({
+        history: PropTypes.shape({
+            push: PropTypes.func.isRequired,
+            replace: PropTypes.func.isRequired
+        }).isRequired,
+        staticContext: PropTypes.object
+    }).isRequired
+};
 
 export default GoogleSearchBoxComponent;

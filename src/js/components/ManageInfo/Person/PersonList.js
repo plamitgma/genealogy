@@ -16,7 +16,7 @@ const PersonList = ({ persons, match, selectCurrentPerson }) => {
                         <div className="person-container-item" key={person.id}>
                             <div className="person-container-item-info">
                                 <div className="photo"
-                                    style={{ backgroundImage: "url(" + (person.photo || require('../../../assets/img/profile.jpg')) + ")" }}></div>
+                                    style={{ backgroundImage: "url(" + (person.photo || require('../../../../assets/img/profile.jpg')) + ")" }}></div>
                                 <div className="information">
                                     <p className="name">
                                         <NavLink className="navbar-brand" to={`${match.url}/person/${person.id}`} onClick={() => selectCurrentPerson(person)}>

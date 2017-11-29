@@ -9,6 +9,10 @@ import {
     handleLogin
 } from "../actions/user";
 
+import {
+    searchPerson
+} from '../actions/searchPerson';
+
 class HomePageComponent extends React.Component {
     constructor() {
         super();
@@ -16,7 +20,9 @@ class HomePageComponent extends React.Component {
 
     render() {
         const {
-            user
+            user,
+            person,
+            searchPerson
         } = this.props;
 
         const loginAction = {
@@ -27,6 +33,7 @@ class HomePageComponent extends React.Component {
         return (
             <div className="new-home-page">
                 <LiveMusicComponent
+                    searchPerson={searchPerson}
                     loginAction={loginAction}
                     user={user} />
                 <ServiceComponent />
@@ -38,11 +45,13 @@ class HomePageComponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        person: state.person
     };
 };
 
 export default connect(mapStateToProps, {
     handleLogout,
-    handleLogin
+    handleLogin,
+    searchPerson
 })(HomePageComponent);

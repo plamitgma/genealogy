@@ -3,7 +3,7 @@ import NavigationComponent from './Navigation';
 import SearchComponent from './Search';
 import './LiveMusic.less';
 
-const LiveMusicComponent = ({ user, loginAction }) =>
+const LiveMusicComponent = ({ user, loginAction, searchPerson }) =>
     <header className="new-home-header">
         <NavigationComponent
             user={user}
@@ -13,7 +13,7 @@ const LiveMusicComponent = ({ user, loginAction }) =>
             <h1>Gia phả họ Phan</h1>
             <p>Kết nối bà con trong dòng họ</p>
             <div className="search-box">
-                <SearchComponent />
+                <SearchComponent searchPerson={searchPerson} />
             </div>
         </div>
     </header>;

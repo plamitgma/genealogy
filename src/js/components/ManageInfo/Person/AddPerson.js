@@ -8,7 +8,7 @@ import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-b
 import SelectPersonModal from './SelectPersonModal';
 import PersonList from './PersonList';
 
-import utils from '../../utils';
+import utils from '../../../utils';
 class AddPerson extends Component {
     constructor() {
         super();
@@ -145,9 +145,9 @@ class AddPerson extends Component {
         }
         return (
             <div className="container add-person-container">
-                <div className="left-content" style={{ backgroundImage: "url(" + (this.state.person.photo ? this.state.person.photo : require('../../../assets/img/profile.jpg')) + ")" }}>
+                <div className="left-content" style={{ backgroundImage: "url(" + (this.state.person.photo ? this.state.person.photo : require('../../../../assets/img/profile.jpg')) + ")" }}>
                     <input className="input-upload-file" type="file" onChange={this.handleUploadLogo} accept=".png,.jpg,.jpeg,.gif" />
-                    <img className="venues-logo-upload" src={require('../../../assets/icons/upload-media.png')} />
+                    <img className="venues-logo-upload" src={require('../../../../assets/icons/upload-media.png')} />
                 </div>
                 <div className="right-content">
                     <form>

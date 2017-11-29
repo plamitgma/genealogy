@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button } from 'react-bootstrap';
 import DateTime from 'react-datetime';
-import utils from '../../utils';
+import utils from '../../../utils';
 import "./AddHusbandWifeInfo.less";
 
 import {
@@ -17,6 +17,13 @@ class AddHusbandWifeInfoComponent extends Component {
         this.handleUpdateHusbandWifeInfo = this.handleUpdateHusbandWifeInfo.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUploadLogo = this.handleUploadLogo.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        const { husbandWifeInfo } = nextProps;
+        this.setState({
+            info: husbandWifeInfo || {}
+        })
     }
 
     handleUploadLogo(e) {
@@ -66,14 +73,14 @@ class AddHusbandWifeInfoComponent extends Component {
                 <Modal.Header>
                     <p>Tộc Phan</p>
                     <img className="pull-right close-image"
-                        src={require('../../../assets/img/home/login/close-icon.png')} onClick={() => setAddHusbandWifeInfoState(false)} />
+                        src={require('../../../../assets/img/home/login/close-icon.png')} onClick={() => setAddHusbandWifeInfoState(false)} />
                 </Modal.Header>
                 <Modal.Body>
                     <form>
                         <FormGroup className="husband-wife-photo-section">
-                            <div className="husband-wife-photo" style={{ backgroundImage: "url(" + (this.state.info.photo ? this.state.info.photo : require('../../../assets/img/profile.jpg')) + ")" }}>
+                            <div className="husband-wife-photo" style={{ backgroundImage: "url(" + (this.state.info.photo ? this.state.info.photo : require('../../../../assets/img/profile.jpg')) + ")" }}>
                                 <input className="input-upload-file" type="file" onChange={this.handleUploadLogo} accept=".png,.jpg,.jpeg,.gif" />
-                                <img className="logo-upload" src={require('../../../assets/icons/upload-media.png')} />
+                                <img className="logo-upload" src={require('../../../../assets/icons/upload-media.png')} />
                             </div>
                         </FormGroup>
                         <FormGroup
