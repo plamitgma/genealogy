@@ -1,0 +1,141 @@
+@import '../../../../../styles/colors';
+
+.search-venue-right-panel {
+    .venue-box {
+        background-color: #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.33);
+        margin-bottom: 10px;
+        overflow: auto;
+        padding-top: 13px;
+        padding-bottom: 13px;
+        .venue-logo-box:before{
+            content: "";
+            display: block;
+            padding-top: 100%; 	/* initial ratio of 1:1*/
+        }
+        .venue-logo-box {
+            position: relative;
+            width: 175px;
+            display: inline-block;
+            margin: auto;
+            background: no-repeat center;
+            background-size: cover;
+            float: left;
+            margin-left: 10px;
+            .venues-logo {
+                position:  absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+            }
+        }
+
+        .venue-content {
+            display: inline-block;
+            padding-left: 20px;
+            float: left;
+            width: calc(100% ~'-' 185px);
+            .venue-lable-text {
+                font-weight: 500;
+                color: @black;
+                margin-right: 5px;
+            }
+
+            .venue-lable-content {
+                font-weight: 300;
+                color: @black;
+            }
+
+            .venue-name, .venue-star, .venue-payment-method {
+                display: block;
+                margin-bottom: 5px;
+            }
+    
+            .venue-payment-method {
+                margin-top: 10px;
+                div {
+                    margin-right: 10px;
+                }
+                .payment-method-container {
+                    display: inline-block;
+                }
+            }
+    
+            .venue-name {
+                font-size: 22px;
+                font-weight: 400;
+                line-height: 1.33;
+                letter-spacing: 0.5px;
+                text-align: left;
+                color: @greyish-brown;
+                display: block;
+            }
+            .venue-star {
+                overflow: hidden;
+                .star-ratings-css {
+                    display: inline-block;
+                    float: left;
+                }
+                .rating-count {
+                    font-size: 17px;
+                    margin-left: 5px;
+                    color: @greyish-brown;
+                    display: inline-block;
+                    float: left;
+                    line-height: 17px;
+                }
+            }
+        }
+
+        @keyframes loadingEvent {
+            0%   {background-color:#ececec;}
+            50%  {background-color:#919192;}
+            100% {background-color:#ececec;}
+        }
+
+        .empty-venue-name, .empty-venue-star, .empty-venue-hour, .empty-venue-method {
+            display: block;
+            background-color:#ececec;
+            height: 20px;
+            animation-name: loadingEvent;
+            animation-duration: 4s;
+            animation-iteration-count: 10;
+            animation-direction: reverse;
+            margin-bottom: 15px;
+            max-width: 100%;
+        }
+
+        .empty-venue-name {
+            width: 300px;
+            max-width: 100%;
+        }
+
+        .empty-venue-star {
+            width: 85px;
+        }
+
+        .empty-venue-hour, .empty-venue-method {
+            width: 175px;
+        }
+
+        @media(max-width: 767px) {
+            .venue-logo-box {
+                margin-left: 0;
+                width: 120px;
+            }
+            .venue-content {
+                padding-left: 10px;
+                width: calc(100% ~'-' 120px);
+                .venue-name {
+                    font-size: 16px;
+                }
+            }
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+    }
+    @media(min-width:992px) {
+        padding: 0 120px;
+    }
+}

@@ -11,6 +11,8 @@ import utils from '../../utils';
 
 import HomeComponent from '../Home';
 import ManageInfoPage from '../ManageInfo';
+import PersonPage from '../Person';
+
 import NotFound from 'views/NotFound';
 import '../../../styles/react-datetime.less';
 import '../../../styles/react-toastify.less';
@@ -23,6 +25,7 @@ const publicPath = '/';
 export const routeCodes = {
     HOME: publicPath,
     MANAGE_INFO: `${publicPath}manage-info`,
+    PERSON: `${publicPath}person`,
     NOT_FOUND: `${publicPath}NotFound`
 };
 
@@ -100,6 +103,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path={publicPath} component={HomeComponent} />
                         <Route path={routeCodes.MANAGE_INFO} component={ManageInfoPage} />
+                        <Route path={routeCodes.PERSON} component={PersonPage} />
                         {<Route path='*' component={NotFound} />}
                     </Switch>
                 </BrowserRouter>

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import person from './person';
-import searchPerson from './searchPerson';
+import searchData from './searchData';
 
 export default combineReducers({
   user,
   person,
-  searchPerson
+  searchData
 });
