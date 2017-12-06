@@ -1,0 +1,91 @@
+@import '../../../styles/colors';
+
+.manage-info-container {
+    width: 100%;
+    background-color: @dark-indigo;
+    .container {
+        &>.navbar-header {
+          margin-left: 0;
+            width:100%;
+        }
+    }
+
+    .navbar {
+        padding-top: 12px;
+        margin-bottom: 0;
+    }
+
+    .navbar-brand {
+        width: 144px;
+        height: 34px;
+        margin-left: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+        p {
+            display: inline-block;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+        }
+    }
+
+    .header-bottom {
+        a {
+            margin-right: 30px;
+            &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .header-item-text {
+        opacity: 0.54;
+        font-family: Montserrat;
+        font-size: 16px;
+        line-height: 25px;
+        text-align: left;
+        color: #ffffff;
+    }
+
+
+
+    @media(max-width:767px) {
+        .navbar {
+            margin-bottom: 10px;
+        }
+    }
+
+    .venue-dashboard-content {
+        background-color: @primary-white;
+        min-height: calc(100vh ~'-' 74px);
+        overflow: auto;
+    }
+
+    .active-tab {
+        height: 44px;
+        border-bottom: 3px solid white;
+        .header-item-text {
+            opacity: 1;
+        }
+
+    }
+
+    .profile-picture {
+        display: inline-block;
+        float: right;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+}
+

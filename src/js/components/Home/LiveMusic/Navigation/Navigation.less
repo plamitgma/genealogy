@@ -1,0 +1,73 @@
+@import '../../../../../styles/colors';
+
+.navigation-bar {
+    .btn-group.open {
+        button {
+            background-color: rgba(0,0,0,.8);
+        }
+    }
+    .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+        background-color: rgba(0,0,0,.8);
+    }
+    .navbar-country, .navbar-lang {
+        border-radius: 2px;
+        float: right;
+        margin-right: 3px;
+        border-radius: 3px;
+        background-color: rgba(0,0,0,.5);
+        border: none;
+        position: relative;
+        height: 32px;
+        padding: 0 12px;
+        .left-text {
+            opacity: 0.7;
+            font-size: 11px;
+            text-align: left;
+            color: #ffffff;
+            line-height: 32px;
+            margin-right: 10px;
+        }
+        .content {
+            width: 21px;
+            height: 14px;
+            font-family: Montserrat;
+            font-size: 12px;
+            line-height: 32px;
+            font-weight: 900;
+            text-align: left;
+            color: @primary-white;
+            margin-left: 0;
+        }
+
+        .caret {
+            color: @white;
+            margin-left: 5px;
+        }
+    }
+
+    .dropdown-menu {
+        right: 0;
+        left: unset;
+        background-color: rgba(0,0,0,.5);
+        li {
+            a {
+                color: @primary-white;
+                &:hover {
+                    color: @primary-white;
+                    background-color: rgba(0,0,0,.8);
+                }
+            }
+            .flag-list {
+                margin-right: 15px;
+                display: inline-block;
+                vertical-align: middle;
+                svg {
+                    width: 24px;
+                    height: 16px;
+                }
+            }
+        }
+    }
+
+}
+

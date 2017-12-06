@@ -1,0 +1,70 @@
+@import '../../../../styles/colors';
+
+#addHusbandWifeInfoModal {
+    .modal-content {
+        .modal-header {
+            background-color: @dark-indigo;
+            .close-image {
+                cursor: pointer;
+            }
+            p {
+                font-size: 20px;
+                font-weight: 600;
+                text-align: left;
+                color: white;
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+        .modal-body {
+            .custom-date-class {
+                input {
+                    background-color: white;
+                }
+            }
+            .husband-wife-photo-section {
+                display: inline-block;
+                .husband-wife-photo {
+                    width: 210px;
+                    padding-right: 20px;
+                    padding-top: 210px;
+                    display: inline-block;
+                    float: left;
+                    position: relative;
+                    max-width: 100%;
+                    margin: auto;
+                    background-size: cover;
+                    background-position: center;
+                    .logo-upload {
+                        width: 30px;
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                    }
+                    .input-upload-file {
+                        cursor: pointer;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        width: 100%;
+                        opacity: 0;
+                        z-index: 1;
+                    }
+                }
+            }
+            .confirm-button, .close-button {
+                height: 50px;
+                width: 49%;
+                background-color: #cb0370;
+                border-color: #cb0370;
+                text-transform: uppercase;
+            }
+        
+            .confirm-button {
+                margin-right: 2%;
+            }
+        }
+    }
+}

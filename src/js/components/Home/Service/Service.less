@@ -1,0 +1,107 @@
+@import '../../../../styles/colors';
+
+.services {
+    padding-bottom: 0;
+    .service-step-container-box {
+        background-color: @primary-white;
+        padding-bottom: 20px;
+    }
+    .text-faded {
+        font-size: 22px;
+        line-height: 1.27;
+        color: @greyish-brown;
+    }
+
+    .section-heading {
+        color: @deep-pink;
+        font-size: 32px;
+        font-weight: 500;
+    }
+
+    .what-video {
+        padding-top: 30px;
+        .btn {
+            width: 165px;
+            height: 45px;
+            border-radius: 3.3px;
+            background: @deep-pink;
+            color: @white;
+            font-size: 19px;
+            font-weight: 500;
+            i {
+                margin-left: 15px;
+            }
+        }
+
+        iframe {
+            max-width: 100%;
+        }
+    }
+
+    .service-box {
+        margin: 0;
+        width: 100%;
+        overflow: auto;
+        position: relative;
+        .service-image-box {
+            background-position: center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            height: 305px;
+            width: 50%;
+            display: inline-block;
+            float: left;
+        }
+        .step-box {
+            width: 410px;
+            max-width: 50%;
+            display: inline-block;
+            float: left;
+            text-align: left;
+            padding: 80px 70px;
+            .step-title {
+                font-size: 18px;
+                font-weight: 900;
+                line-height: 1.39;
+                color: #4a4a4a;
+            }
+            .step-box-line {
+                width: 61px;
+                height: 1px;
+                border: solid 1px #cb0370;
+                margin: 20px 0;
+            }
+            .step-description {
+                font-size: 18px;
+                color: #767676;
+            }
+
+            &.is-second {
+                float: right;
+            }
+        }
+    }
+
+    @media(max-width:767px) {
+        .service-box {
+            margin-bottom: 20px;
+            .service-image-box {
+                width: 100%;
+            }
+            .step-box {
+                width: 76%;
+                max-width: 76%;
+                position: absolute;
+                bottom: 0;
+                left: 12%;
+                padding: 20px 30px;
+                background-color: white;
+                .step-box-line {
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+}
