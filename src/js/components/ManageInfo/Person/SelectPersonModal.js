@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./SelectPersonModal.less";
+import utils from '../../../utils/';
 
 import {
     Modal,
@@ -15,7 +16,7 @@ class SelectPersonModalComponent extends Component {
         this.handleSearchChange = this.handleSearchChange.bind(this);
     }
     componentWillReceiveProps(nextProps, nextContext) {
-        const { persons } = nextProps;
+        const { persons, selectPersonModalState } = nextProps;
         this.setState({
             currentList: persons
         })
@@ -24,9 +25,10 @@ class SelectPersonModalComponent extends Component {
     handleSearchChange(e) {
         const { persons } = this.props;
         this.setState({
-            currentList: persons.filter(per => per.fullName.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1)
+            currentList: persons.filter(per => utils.removeVietNameseString(per.fullName.toLowerCase()).indexOf(utils.removeVietNameseString(e.target.value.toLowerCase())) > -1)
         })
     }
+
     render() {
         const { selectPersonModalState, setSelectPersonModalState, persons, handleSelectPerson } = this.props;
         return (
@@ -42,6 +44,7 @@ class SelectPersonModalComponent extends Component {
                     <FormControl
                         type="text"
                         placeholder="Nhập họ và tên"
+                        autoFocus
                         onChange={this.handleSearchChange}
                     />
                     {
@@ -55,12 +58,23 @@ class SelectPersonModalComponent extends Component {
                                             <p className="name">
                                                 {person.fullName}</p>
                                             <p className="name">{person.address}</p>
+                                            <p className="name">Đời thứ: {person.class}</p>
                                         </div>
                                     </div>
                                 </div>
                             )
                         })
                     }
+                    <div className="person-container-item" onClick={() => handleSelectPerson(null)}>
+                        <div className="person-container-item-info">
+                            <div className="photo"
+                                style={{ backgroundImage: "url(" + require('../../../../assets/img/profile.jpg') + ")" }}></div>
+                            <div className="information">
+                                <p className="name">
+                                    Để trống</p>
+                            </div>
+                        </div>
+                    </div>
                 </Modal.Body>
             </Modal>
         )

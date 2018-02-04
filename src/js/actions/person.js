@@ -8,9 +8,10 @@ export function addPerson(person) {
                 ...person,
                 updateAt: firebase.database.ServerValue.TIMESTAMP
             };
+            delete data.children;
             var updates = {};
             updates['/person/' + person.id] = data;
-            return firebase.database().ref().update(updates);
+            firebase.database().ref().update(updates);
         } else {
             // Get a key for a new Post.
             var newPersonId = firebase.database().ref().child('person').push().key;
@@ -24,8 +25,9 @@ export function addPerson(person) {
             // Write the new post's data simultaneously in the posts list and the user's post list.
             var updates = {};
             updates['/person/' + newPersonId] = data;
-            return firebase.database().ref().update(updates);
+            firebase.database().ref().update(updates);
         }
+        dispatch(getAll());
     };
 }
 
