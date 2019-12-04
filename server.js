@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 app.use(express.static('./'));
-var port = 5555;
+var port = process.env.PORT || 3000;
 app.set('port', port);
 
 //serve index.html for all not 'static' prefixed requests
@@ -15,8 +15,3 @@ var server = app.listen(app.get('port'), function (req, res) {
     }
     console.log('Express server listening on port ' + server.address().port);
 });
-
-
-
-
-
